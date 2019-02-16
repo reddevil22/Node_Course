@@ -1,0 +1,22 @@
+{
+  "name": "notes-node",
+  "version": "1.0.0",
+  "description": "Udemy NodeJS course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reddevil22/Node_Course.git"
+  },
+  "author": "Joel Kenneth Fredericks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reddevil22/Node_Course/issues"
+  },
+  "homepage": "https://github.com/reddevil22/Node_Course#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}

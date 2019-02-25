@@ -1,8 +1,25 @@
+const fs = require('fs');
 console.log('Starting notes.js:');
 
 const addNote = (title, body) => {
-	console.log('TCL: addNote -> title:', title)
-	console.log('TCL: addNote -> body:', body)
+	let notes = [];
+	let note = {
+		title,
+		body,
+	};
+
+	try {
+		let notesString = fs.readFileSync('notes-data.json', );
+		notes = JSON.parse(notesString);
+	} catch(e) {
+
+	}
+	let duplicateNotes = notes.filter((note) => note.title === title);
+
+	if(duplicateNotes.length === 0) {
+		notes.push(note);
+		fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+	}
 }
 
 const getAll = () => {

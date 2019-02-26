@@ -11,7 +11,8 @@ const command = argv._[0];
 
 switch (command) {
     case 'add':
-        notes.addNote(argv.title, argv.body);
+        let note = notes.addNote(argv.title, argv.body);
+        note !== undefined ? console.log(`Note with title ${argv.title} added`) : console.log(`Note with title ${argv.title} already exists`)
         break;
     case 'list':
         notes.getAll();

@@ -16,10 +16,15 @@ switch (command) {
         note !== undefined ? console.log(`Note with title ${argv.title} added`) : console.log(`Note with title ${argv.title} already exists`)
         break;
     case 'list':
-        notes.getAll();
+        const allNotes = notes.getAll();
+        console.log(`Printing ${allNotes.length} note(s)`);
+        allNotes.forEach(element => {
+            element !== undefined ? console.log('Current note:\n', JSON.stringify(element, null, 4)) : console.log(`No notes with title ${argv.title} stored`);
+        });
         break;
     case 'read':
-        notes.readNote(argv.title, argv.body);
+        note = notes.readNote(argv.title);
+        note !== undefined ? console.log('Current note:\n', JSON.stringify(note, null, 4)) : console.log(`No notes with title ${argv.title} stored`);
         break;
     case 'delete':
     note = notes.deleteNote(argv.title);

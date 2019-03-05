@@ -30,12 +30,14 @@ const addNote = (title, body) => {
 }
 
 const getAll = () => {
-	console.log('Getting all notes');
+	return fetchNotes();
 }
 
-const readNote = (title, body) => {
-	console.log('Getting', title);
-	console.log('body:', body);
+const readNote = (title) => {
+	let notes = fetchNotes();
+	debugger;
+	let filteredNotes = notes.filter((note) => note.title === title);
+	return filteredNotes[0];
 }
 
 const deleteNote = (title) => {

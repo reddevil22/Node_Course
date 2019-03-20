@@ -20,23 +20,46 @@ app.use(express.static(publicDirectoryPath));
 app.get('', (req: express.Request, res: express.Response) => {
     res.render('index', {
         name: 'Joel',
-        title: 'Baus'
+        title: 'Home',
+        footer: 'Created by Joel'
     });
 });
 
 app.get('/about', (req: express.Request, res: express.Response) => {
-    res.render('about');
+    res.render('about', {
+        name: 'Joel',
+        title: 'About Me',
+        footer: 'Created by Joel'
+    });
 });
 
 app.get('/help', (req: express.Request, res: express.Response) => {
     res.render('help', {
         title: 'Help',
-        message: 'Welcome to the help page'
+        message: 'Welcome to the help page',
+        name: 'Joel',
+        footer: 'Created by Joel'
     });
 });
 
 app.get('/weather', (req: express.Request, res: express.Response) => {
     res.send('Weather');
+});
+
+app.get('/help/*', (req: express.Request, res: express.Response) => {
+    res.render('404page', {
+        errorMessage: 'Page not found',
+        footer: 'Created by Joel',
+        title: '404',
+    });
+});
+
+app.get('*', (req: express.Request, res: express.Response) => {
+    res.render('404page', {
+        errorMessage: 'Page not found',
+        footer: 'Created by Joel',
+        title: '404',
+    });
 });
 
 app.listen(3000, () => {

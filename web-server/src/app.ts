@@ -1,6 +1,8 @@
 const path = require('path');
 import * as express from 'express';
 import * as hbs from 'hbs';
+import { forecast } from './utils/forecast';
+import { geocode } from './utils/geocode';
 
 const app = express();
 
@@ -43,7 +45,40 @@ app.get('/help', (req: express.Request, res: express.Response) => {
 });
 
 app.get('/weather', (req: express.Request, res: express.Response) => {
-    res.send('Weather');
+    if(!req.query.address) {
+        return res.send({
+            error: 'You must provide an address'
+        })
+    }
+    geocode(req.query.address, (error, data) => {
+        if(error) {
+            return res.send({
+                error,
+            })
+        }
+        forecast(data, (error, data) => {
+            if(error) {
+                return res.send({
+                    error,
+                })
+            }
+            res.send({
+                address: req.query.address,
+                forecast: {...data},
+            });
+        })
+    });
+});
+
+app.get('/products', (req: express.Request, res: express.Response) => {
+    if(!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term'
+        })
+    }
+    res.send({
+        products: [],
+    });
 });
 
 app.get('/help/*', (req: express.Request, res: express.Response) => {

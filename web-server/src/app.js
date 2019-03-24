@@ -1,8 +1,21 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var path = require('path');
 var express = require("express");
 var hbs = require("hbs");
+var forecast_1 = require("./utils/forecast");
+var geocode_1 = require("./utils/geocode");
 var app = express();
 // Define paths for Express config
 var publicDirectoryPath = path.join(__dirname, '../public');
@@ -37,7 +50,39 @@ app.get('/help', function (req, res) {
     });
 });
 app.get('/weather', function (req, res) {
-    res.send('Weather');
+    if (!req.query.address) {
+        return res.send({
+            error: 'You must provide an address'
+        });
+    }
+    geocode_1.geocode(req.query.address, function (error, data) {
+        if (error) {
+            return res.send({
+                error: error
+            });
+        }
+        forecast_1.forecast(data, function (error, data) {
+            if (error) {
+                return res.send({
+                    error: error
+                });
+            }
+            res.send({
+                address: req.query.address,
+                forecast: __assign({}, data)
+            });
+        });
+    });
+});
+app.get('/products', function (req, res) {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term'
+        });
+    }
+    res.send({
+        products: []
+    });
 });
 app.get('/help/*', function (req, res) {
     res.render('404page', {

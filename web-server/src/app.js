@@ -17,6 +17,7 @@ var hbs = require("hbs");
 var forecast_1 = require("./utils/forecast");
 var geocode_1 = require("./utils/geocode");
 var app = express();
+var port = process.env.PORT || 3000;
 // Define paths for Express config
 var publicDirectoryPath = path.join(__dirname, '../public');
 var views = path.join(__dirname, '../templates/views');
@@ -98,6 +99,6 @@ app.get('*', function (req, res) {
         title: '404'
     });
 });
-app.listen(3000, function () {
-    console.log('Server is up and running');
+app.listen(port, function () {
+    console.log("Server is up and running on port " + port);
 });
